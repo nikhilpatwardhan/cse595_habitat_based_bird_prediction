@@ -3,7 +3,7 @@ function label=findHabitat(filepath)
 
 load './matfiles/classifiers.mat';
 load './matfiles/dictionary_200.mat';
-load './matfiles/model_names_no_mountains.mat';
+load './matfiles/modelNames.mat';
 
 addpath('./utils/libsvm-mat-3.0-1/');
 
@@ -26,13 +26,12 @@ featureVector = CompilePyramid(imageFileList,dataBaseDir,sprintf('_texton_ind_%d
 
 % Classify the features using classifiers for all habitats
 prob = zeros(size(model_names, 2),2);
-pl = zeros(size(model_names, 2),1);
-acc = zeros(size(model_names, 2),1);
 
 for i=1:size(model_names, 2)
     [pl acc prob(i,:)] = svmpredict(1, featureVector,  classifiers{i}, '-b 1');
 end;
 
+prob(:,1)
 [value position] = max(prob(:,1));
 
 label = model_names{position};

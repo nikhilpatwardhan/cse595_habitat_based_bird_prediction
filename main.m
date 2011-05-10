@@ -1,5 +1,6 @@
 
 addpath('./utils/libsvm-mat-3.0-1/');
+addpath('./utils/spatial_pyramid/');
 addpath('./utils/');
 
 % Read an image, GPS co-ordinates and a date
@@ -9,8 +10,8 @@ numlines = 1;
 name = 'Habitat-based Bird Identification';
 
 answer = inputdlg(prompt, name, numlines, defAns, 'on');
-
-% % I = imread(answer{1});
+% 
+% % % I = imread(answer{1});
 lat = str2double(answer{2});            % GPS Latitude
 lon = str2double(answer{3});            % GPS Longitude
 daten = datenum(answer{4});
@@ -22,10 +23,12 @@ radius = 3;                             % miles
 % month = 5;
 % lat = 40.92;
 % lon = -73.12;
-% label = 'grasslands';
+% answer{1} = ;
 
 % Identify the habitat in the image
-label = findHabitat(answer{1});
+label = findHabitat(answer{1})
+% label = findHabitat('./data/demo/roof-view-2.jpg')   % UGLY
+% label = findHabitat('./data/demo/out/9.jpg')
 
 % Build an SQL query using GPS data and the date
 sqlquery = sprintf(['select * from (select common_name as ''Bird'', ' ...
@@ -49,9 +52,13 @@ for i=1:length(curs)
     x(i) = cell2mat(curs(i,2));
 end;
 
+if (isempty(x))
+    disp('Sorry, no bird sightings were found for that habitat at the given location.');
+    return;
+end;
 % Show the histogram
-h=bar(x,'hist');
-xticklabel_rotate([1:length(x)],90,y,'interpreter','none','Fontsize',12);
+bar(x);
+xticklabel_rotate([1:length(x)],90,y,'interpreter','none');
 ylabel('Bird Counts');
 xlabel('Birds');
 titleString = sprintf('Bird counts for the habitat ''%s'' around Latitude %.6f, Longitude %.6f',label,lat,lon);

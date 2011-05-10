@@ -25,22 +25,22 @@ function accuracy = calcAccuracyPyramid(index, listOfFeatures, listOfModels, mod
                 testLabels = labelsNo;
             end
             
-            [pl, acc, prob] = svmpredict(testLabels, testData,  listOfModels{i}, '-b 1');            
+            [pl, acc, prob] = svmpredict(testLabels, testData,  listOfModels{i}, '-b 1');
             arr(:,i) = prob(:,1);
         end
         
         
         for i=1:length - length*p + 1
             maxp = 0;
-            index = 0;
+            tmpID = 0;
             for j=1:numOfModels
                 if(maxp<arr(i,j))
                     maxp = arr(i,j);
-                    index = j;
+                    tmpID = j;
                 end
             end
             arr(i, numOfModels + 1) = maxp;
-            arr(i, numOfModels + 2) = index;
+            arr(i, numOfModels + 2) = tmpID ;
         end
         
     accuracy =  numel(find(arr(:,numOfModels+2)==index))/size(arr,1);
