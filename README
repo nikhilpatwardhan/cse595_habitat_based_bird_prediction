@@ -1,0 +1,7 @@
+Add the /usr/share/java/mysql-connector-java-5.1.10.jar to the classpath.txt
+
+conn = database('mysql', 'dummy', 'dummy', 'com.mysql.jdbc.Driver', 'jdbc:mysql://localhost:3306/mysql');
+
+curs = exec(conn, 'select * from complete_ny_ebird_data where lat like 42.9685 and obs_number = 12');
+curs = fetch(curs);
+curs.Data
