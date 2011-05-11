@@ -1,11 +1,14 @@
+model_names = {'beach','forests'};
+nCategories = length(model_names);
 
-listOfFiles = dir('../data/images');
+listOfFiles = dir('../data/images/');
 listOfFiles = listOfFiles(3:size(listOfFiles, 1));
 
 prevsplit = '';
 display('BEGIN');
 
-groupIndices = zeros(11, 1);
+groupIndices = zeros(nCategories, 1);
+categorySize = cell(1,nCategories);
 
 j =1;
 
@@ -19,7 +22,14 @@ for i=1:size(listOfFiles,1)
         display(split(1));
         prevsplit = split(1);
     end
-    
 end
 
+for k=1:nCategories
+    if (k ~= 1)
+        categorySize{k-1} = groupIndices(k) - 1;
+    end;
+end;
+categorySize{k} = i - groupIndices(k) + 1;
+
 display('END');
+save('../matfiles/groupIndices.mat','groupIndices','model_names','categorySize');
