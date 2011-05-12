@@ -10,3 +10,6 @@ gHist = double(imhist(I(:,:,2), nBins)) / double(imSize);
 bHist = double(imhist(I(:,:,3), nBins)) / double(imSize);
 
 hist = [rHist;gHist;bHist];
+
+% Normalize so that the sum of all elements becomes 1
+hist = hist/norm(hist,1);
