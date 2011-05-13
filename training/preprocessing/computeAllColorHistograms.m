@@ -1,7 +1,7 @@
 % Loop through all images to find their Color Histograms
-load '../matfiles/groupIndices.mat';
+load '../../matfiles/groupIndices.mat';
 
-baseDir = '../data/images/';
+baseDir = '../../data/images/';
 list = dir(strcat(baseDir,'*.jpg'));
 nBins = 32;
 
@@ -36,4 +36,4 @@ for i=1:length(categorySize)
     end;
 end;
 
-save('../matfiles/allColor.mat','allColorHistograms','newHist');
+save('../../matfiles/allColor.mat','allColorHistograms','newHist');

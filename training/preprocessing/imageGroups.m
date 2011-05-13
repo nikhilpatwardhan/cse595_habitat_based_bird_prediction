@@ -1,7 +1,7 @@
 model_names = {'beach','forests'};
 nCategories = length(model_names);
 
-listOfFiles = dir('../data/images/');
+listOfFiles = dir('../../data/images/');
 listOfFiles = listOfFiles(3:size(listOfFiles, 1));
 
 prevsplit = '';
@@ -32,4 +32,4 @@ end;
 categorySize{k} = i - groupIndices(k) + 1;
 
 display('END');
-save('../matfiles/groupIndices.mat','groupIndices','model_names','categorySize');
+save('../../matfiles/groupIndices.mat','groupIndices','model_names','categorySize');

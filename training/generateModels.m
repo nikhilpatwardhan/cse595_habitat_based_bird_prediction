@@ -4,7 +4,8 @@ function generateModels(log2c,log2g)
 % load '../matfiles/finalPyramidLengths.mat';
 % load '../matfiles/modelNames.mat';
 load '../matfiles/groupIndices.mat';
-load '../matfiles/allColor.mat';
+load '../matfiles/finalGists.mat';
+% load '../matfiles/allColor.mat';
 
 p = 0.5;
 
@@ -25,7 +26,7 @@ for i=1:numOfModels
     testLabels{i}(:) = 1;
 %     [ts, tl] = createTrainingSets(p, i, pyramids, pyramidLengths,
 %     testLabels);
-    [ts, tl] = createTrainingSets(p, i, newHist, categorySize, testLabels);
+    [ts, tl] = createTrainingSets(p, i, finalGists, categorySize, testLabels);
     classifiers{i} = svmtrain(tl', ts', cmd);
 end
 

@@ -1,7 +1,6 @@
 function accuracy = calcAccuracyPyramid(index, listOfFeatures, listOfModels, modelNames, p)
     % listOfFeatures is n*m matrix with n = number of images, m = number of
     % features
-          
         display(modelNames{index});
         length = size(listOfFeatures{index}, 1);
         
@@ -27,7 +26,6 @@ function accuracy = calcAccuracyPyramid(index, listOfFeatures, listOfModels, mod
             arr(:,i) = prob(:,1);
         end
         
-        
         for i=1:length - length*p + 1
             maxp = 0;
             tmpID = 0;
@@ -42,7 +40,4 @@ function accuracy = calcAccuracyPyramid(index, listOfFeatures, listOfModels, mod
         end
         
     accuracy =  numel(find(arr(:,numOfModels+2)==index))/size(arr,1);
-   % end
 end
-
-

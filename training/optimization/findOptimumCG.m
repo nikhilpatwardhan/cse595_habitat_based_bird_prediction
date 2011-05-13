@@ -1,9 +1,10 @@
 clear;
-load '../matfiles/finalPyramids.mat';
-load '../matfiles/finalPyramidLengths.mat';
-load '../matfiles/modelNames.mat';
+load '../../matfiles/finalPyramids.mat';
+load '../../matfiles/finalPyramidLengths.mat';
+load '../../matfiles/modelNames.mat';
 
-addpath('../utils/libsvm-mat-3.0-1');
+addpath('../../utils/libsvm-mat-3.0-1');
+
 p = 0.5;
 
 labels={};
@@ -12,8 +13,7 @@ for j=1:12
 end
 
 bc=[];
-bg=[];
-bcv=[];
+bestcv = 0;
 
 for k=1:12
     testLabels = labels;
@@ -31,9 +31,10 @@ for k=1:12
         end
       end
     end
-    bc(k) = bestc;
-    bg(k) = bestg;
-    bcv(k) = bestcv;
+
+    bc(1,i) = bestc;
+    bc(2,i) = bestg;
+    bc(3,i) = bestcv;
 end;
 
-save('../matfiles/bestcg.mat','bc','bg','bcv');
+save('../../matfiles/bestcg.mat','bc','bg','bcv');

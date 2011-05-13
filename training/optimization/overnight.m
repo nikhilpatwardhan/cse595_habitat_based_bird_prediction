@@ -1,3 +1,5 @@
+addpath('../../utils/libsvm-mat-3.0-1');
+
 acc=zeros(14,102);
 i=1;
 for log2c = -1:8,
@@ -12,4 +14,5 @@ for log2c = -1:8,
     i=i+1;
   end
 end
-save('overnight.mat','acc');
+
+save('../../matfiles/overnight.mat','acc');
