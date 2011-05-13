@@ -1,4 +1,4 @@
-model_names = {'beach','forests'};
+model_names = {'beach','deserts','forests','gardens','lakes','mangrove','marshes','mudflats','oceans','open','urban'};
 nCategories = length(model_names);
 
 listOfFiles = dir('../../data/images/');
@@ -24,10 +24,8 @@ for i=1:size(listOfFiles,1)
     end
 end
 
-for k=1:nCategories
-    if (k ~= 1)
-        categorySize{k-1} = groupIndices(k) - 1;
-    end;
+for k=2:nCategories
+    categorySize{k-1} = groupIndices(k) - groupIndices(k-1);
 end;
 categorySize{k} = i - groupIndices(k) + 1;
 

@@ -7,7 +7,7 @@ load '../matfiles/groupIndices.mat';
 load '../matfiles/finalGists.mat';
 % load '../matfiles/allColor.mat';
 
-p = 0.5;
+p = 0.7;
 
 numOfModels = size(model_names, 2);
 labels = cell(1, numOfModels);

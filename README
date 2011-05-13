@@ -1,9 +1,8 @@
 Training Flow:
-computeAllGIST.m		==> Computes GIST for all images
 imageGroups.m			==> Creates preparatory data for training
-createTrainingSets.m		==> Positive and negative training sets
+computeAllGIST.m		==> Computes GIST for all images
 generateModels(7,1)		==> Two arguments: log2c, log2g
-
+calcAccForAll			==> Final accuracies
 
 
 Add the /usr/share/java/mysql-connector-java-5.1.10.jar to the classpath.txt

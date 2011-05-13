@@ -16,4 +16,5 @@ for i=1:length(finalGists)
 
 end
 
+acc = acc * 100;
 save(sprintf('../matfiles/accuracies.mat'), 'acc');

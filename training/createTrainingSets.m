@@ -7,7 +7,7 @@ function [trainingSet, trainingLabels] = createTrainingSets(percentageOfImagesTo
     
     for i=1:numOfSets
         if trainingIndex ~= i
-        trainingSet = [trainingSet, pyramids{i}(1:uint32(lengths{i}*p),:)'];
+            trainingSet = [trainingSet, pyramids{i}(1:uint32(lengths{i}*p),:)'];
         end
     end   
     trainingSet = [pyramids{trainingIndex}(1:uint32(lengths{trainingIndex}*p),:)', trainingSet];
