@@ -1,4 +1,3 @@
-
 function accuracy = calcAccuracyPyramid(index, listOfFeatures, listOfModels, modelNames, p)
     % listOfFeatures is n*m matrix with n = number of images, m = number of
     % features
@@ -18,7 +17,6 @@ function accuracy = calcAccuracyPyramid(index, listOfFeatures, listOfModels, mod
         numOfModels = size(listOfModels, 2);
         arr = zeros(length - startIndex  + 1, numOfModels+2);
         for i=1:size(listOfFeatures, 2)
-            
             if(i == index)
                 testLabels = labelsYes;
             else

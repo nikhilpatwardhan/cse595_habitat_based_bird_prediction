@@ -22,7 +22,7 @@ for k=1:12
     [ts, tl] = createTrainingSets(p, k, pyramids, pyramidLengths, testLabels);
 
     bestcv = 0;
-    for log2c = -1:5,
+    for log2c = -1:10,
       for log2g = -4:1,
         cmd = ['-v 5 -c ', num2str(2^log2c), ' -g ', num2str(2^log2g)];
         cv = svmtrain(tl', ts', cmd);
@@ -36,4 +36,4 @@ for k=1:12
     bcv(k) = bestcv;
 end;
 
-% save('../matfiles/bestcg.mat','bc','bg','bcv');
+save('../matfiles/bestcg.mat','bc','bg','bcv');
