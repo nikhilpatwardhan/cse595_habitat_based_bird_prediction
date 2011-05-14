@@ -1,19 +1,19 @@
-function generateModels(log2c,log2g)
+function generateModels(features,log2c,log2g,p)
 
 % load '../matfiles/finalPyramids.mat';
 % load '../matfiles/finalPyramidLengths.mat';
 % load '../matfiles/modelNames.mat';
 load '../matfiles/groupIndices.mat';
-load '../matfiles/finalGists.mat';
+% load '../matfiles/finalGists.mat';
 % load '../matfiles/allColor.mat';
+% load '../matfiles/colorgist.mat';
 
-p = 0.7;
+addpath('../utils/libsvm-mat-3.0-1');
 
 numOfModels = size(model_names, 2);
 labels = cell(1, numOfModels);
 
 for i=1:numOfModels
-%    labels{i} = zeros(pyramidLengths{i}, 1);
     labels{i} = zeros(categorySize{i},1);
 end
 
@@ -26,7 +26,10 @@ for i=1:numOfModels
     testLabels{i}(:) = 1;
 %     [ts, tl] = createTrainingSets(p, i, pyramids, pyramidLengths,
 %     testLabels);
-    [ts, tl] = createTrainingSets(p, i, finalGists, categorySize, testLabels);
+%     [ts, tl] = createTrainingSets(p, i, finalGists, categorySize, testLabels);
+%     [ts, tl] = createTrainingSets(p, i, newHist, categorySize, testLabels);
+%     [ts, tl] = createTrainingSets(p, i, colorgist, categorySize, testLabels);
+    [ts, tl] = createTrainingSets(p, i, features, categorySize, testLabels);
     classifiers{i} = svmtrain(tl', ts', cmd);
 end
 

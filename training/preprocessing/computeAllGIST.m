@@ -1,7 +1,7 @@
 clear;
 clc;
 addpath('../../utils/gist/');
-% findGist('../../data/images/','../../matfiles/gist.mat');
+findGist('../../data/images/','../../matfiles/gist.mat');
 
 load '../../matfiles/gist.mat';
 

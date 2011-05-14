@@ -1,4 +1,4 @@
-model_names = {'beach','deserts','forests','gardens','lakes','mangrove','marshes','mudflats','oceans','open','urban'};
+model_names = {'coasts','deserts','forests','gardens','lakes','mangrove','marshes','mountains','mudflats','oceans','open','urban'};
 nCategories = length(model_names);
 
 listOfFiles = dir('../../data/images/');

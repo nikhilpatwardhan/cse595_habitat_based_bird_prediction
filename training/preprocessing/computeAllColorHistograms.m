@@ -1,14 +1,20 @@
 % Loop through all images to find their Color Histograms
+clear;
+clc;
+
 load '../../matfiles/groupIndices.mat';
+
+addpath('../../utils');
 
 baseDir = '../../data/images/';
 list = dir(strcat(baseDir,'*.jpg'));
-nBins = 32;
+nBins = 64;
 
 allColorHistograms = zeros(nBins*3,length(list));
 
 for i=1:length(list)
     fname = list(i).name;
+    disp(fname);
     
     I = imread(strcat(baseDir,fname));
     if (size(I,3) ~= 3)
@@ -18,22 +24,15 @@ for i=1:length(list)
     allColorHistograms(:,i) = computeImageRGBHistogram(I,nBins);
 end;
 
-% Crude attempt at normalizing (Dividing by maximum element in each column
-% (file)
-for i=1:length(list)
-    allColorHistograms(:,i) = allColorHistograms(:,i)/max(allColorHistograms(:,i));
-end;
-
 % Transpose
 allColorHistograms = allColorHistograms';
 
 newHist = cell(1,length(categorySize));
-for i=1:length(categorySize)
-    if (i==1)
-        newHist{i} = allColorHistograms(i:categorySize{i},:);
-    else
-        newHist{i} = allColorHistograms(categorySize{i-1}+1:categorySize{i-1}+categorySize{i},:);
-    end;
+for i=1:length(categorySize)-1
+    startRow = groupIndices(i);
+    endRow = groupIndices(i+1)-1;
+    newHist{i} = allColorHistograms(startRow:endRow,:);
 end;
+newHist{i+1} = allColorHistograms(endRow+1:length(allColorHistograms),:);
 
 save('../../matfiles/allColor.mat','allColorHistograms','newHist');
