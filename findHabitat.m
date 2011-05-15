@@ -3,7 +3,7 @@ function label=findHabitat(filepath)
 
 load './matfiles/classifiers.mat';
 load './matfiles/dictionary_200.mat';
-load './matfiles/modelNames.mat';
+load '../matfiles/groupIndices.mat';
 
 addpath('./utils/libsvm-mat-3.0-1/');
 
@@ -16,7 +16,7 @@ maxImageSize = 1000;
 gridSpacing = 8;
 patchSize = 16;
 dictionarySize = 200;
-pyramidLevels = 3;
+pyramidLevels = 4;
 canSkip = 0;
 
 %% PART 1 : Compute the spatial SIFT pyramid

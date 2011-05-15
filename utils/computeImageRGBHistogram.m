@@ -1,13 +1,9 @@
-% This function computes the RGB counts for an RGB image, then divides each
-% count by the size of the region to normalize the calculation.
 function [hist] = computeImageRGBHistogram(I,nBins)
+%% This function computes the normalized RGB histogram for an image
 
-[h w z] = size(I);
-imSize = h * w;
-
-rHist = double(imhist(I(:,:,1), nBins)) / double(imSize);
-gHist = double(imhist(I(:,:,2), nBins)) / double(imSize);
-bHist = double(imhist(I(:,:,3), nBins)) / double(imSize);
+rHist = double(imhist(I(:,:,1), nBins));
+gHist = double(imhist(I(:,:,2), nBins));
+bHist = double(imhist(I(:,:,3), nBins));
 
 hist = [rHist;gHist;bHist];
 

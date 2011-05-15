@@ -1,9 +1,11 @@
-clear;
-clc;
+%% Computes normalized GIST histograms for all images in a directory
 addpath('../../utils/gist/');
-findGist('../../data/images/','../../matfiles/gist.mat');
 
-load '../../matfiles/gist.mat';
+imageDirectory = '../../data/images/';
+matDirectory = '../../matfiles/';
+findGist(imageDirectory,strcat(matDirectory,'gist.mat'));
+
+load (strcat(matDirectory,'gist.mat'));
 
 % Normalize gist vectors
 for i=1:length(gist)
@@ -14,7 +16,7 @@ end;
 
 gist = gist';
 
-load '../../matfiles/groupIndices.mat';
+load (strcat(matDirectory,'groupIndices.mat'));
 
 finalGists = cell(1,length(categorySize));
 startRow = 0;
@@ -25,4 +27,4 @@ for i=1:length(categorySize)-1
 end;
 finalGists{i+1} = gist(endRow+1:length(gist),:);
 
-save('../../matfiles/finalGists.mat','finalGists');
+save(strcat(matDirectory,'finalGists.mat'),'finalGists');

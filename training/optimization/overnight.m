@@ -17,7 +17,7 @@ for log2c = 5:9,
       disp(log2g);
       
     generateModels(features,log2c,log2g,p);
-    ans=calcAccForAll(features,p);
+    ans=calcConfusionForAll(features,p);
     acc(3:14,i) = ans;
     acc(1,i) = 2^log2c;
     acc(2,i) = 2^log2g;
@@ -40,7 +40,7 @@ for log2c = 5:9,
       disp(log2g);
       
     generateModels(features,log2c,log2g,p);
-    ans=calcAccForAll(features,p);
+    ans=calcConfusionForAll(features,p);
     acc(3:14,i) = ans;
     acc(1,i) = 2^log2c;
     acc(2,i) = 2^log2g;

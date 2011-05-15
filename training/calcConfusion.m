@@ -1,4 +1,5 @@
-function accuracy = calcAccuracyPyramid(index, listOfFeatures, listOfModels, modelNames, p)
+function confusion = calcConfusion(index, listOfFeatures, listOfModels, modelNames, p)
+%% Returns a column for the confusion matrix for one category
     % listOfFeatures is n*m matrix with n = number of images, m = number of
     % features
         display(modelNames{index});
@@ -8,8 +9,8 @@ function accuracy = calcAccuracyPyramid(index, listOfFeatures, listOfModels, mod
         labelsYes = ones(length - startIndex + 1,1);
         labelsNo = zeros(length - startIndex + 1,1);
 
-        display(startIndex);
-        display(length);
+%         display(startIndex);
+%         display(length);
         testData = listOfFeatures{index}(startIndex :length, :);
 
         %arr = zeros(length - startIndex  + 1, 14);
@@ -23,9 +24,9 @@ function accuracy = calcAccuracyPyramid(index, listOfFeatures, listOfModels, mod
             end
             
             [pl, acc, prob] = svmpredict(testLabels, testData,  listOfModels{i}, '-b 1');
-            arr(:,i) = prob(:,1);
+%             arr(:,i) = prob(:,1);
         end
-        
+
         for i=1:length - length*p + 1
             maxp = 0;
             tmpID = 0;
@@ -39,5 +40,9 @@ function accuracy = calcAccuracyPyramid(index, listOfFeatures, listOfModels, mod
             arr(i, numOfModels + 2) = tmpID ;
         end
         
-    accuracy =  numel(find(arr(:,numOfModels+2)==index))/size(arr,1);
+    confusion = zeros(1, numOfModels+1);
+    confusion(1, numOfModels+1) = size(arr,1);
+    for k=1:numOfModels
+        confusion(1, k) =  numel(find(arr(:,numOfModels+2)==k));
+    end
 end

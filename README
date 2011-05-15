@@ -1,10 +1,74 @@
-Training Flow:
-imageGroups.m			==> Creates preparatory data for training
-computeAllGIST.m		==> Computes GIST for all images
-generateModels(7,1)		==> Two arguments: log2c, log2g
-calcAccForAll			==> Final accuracies
+Note: *All* images are assumed to be in a single directory
+
+Utils:
+================
+scaleScript.sh              *==> This script checks if the input images have an aspect ratio that is close to 4:3.
+                                If so, it resizes those input images to a width of 400 pixels. These will be used for training.
+computeImageRGBHistogram    *==> This function computes the normalized RGB histogram for an image.
+xticklabel_rotate           *==> Written by Denis Gilbert, this is a function that helps display the bird labels in the histogram.
 
 
+TRAINING FLOW:
+==============
+Preprocessing:
+--------------
+isBlackAndWhite             *==> Displays images that are black and white (eligible to be removed)
+computeAllGIST              *==> Computes GIST for all images
+computeAllColorHistograms   *==> Computes Color Histograms for all images
+computeAllSpatialPyramids   *==> computes Spatial Pyramids for all images
+generateListOfPyramids      *==> Builds the sets of spatial pyramids per category in a format that can be used to train an SVM
+combineGistColor            *==> combines the GIST and Color Histograms
+imageGroups                 *==> Creates preparatory data for training
+
+Training:
+---------
+generateModels              ==> Train models (hardcoded to use the spatial pyramid intersection kernel)
+calcConfusionForAll         *==> Test and find confusion matrix
+calcConfusion               ==> Helper function to find confusion matrix
+
+Optimization:
+-------------
+findOptimumCG               *==> Method 1 of finding optimum C and g values using a Grid Search
+overnight                   *==> Method 2 of finding optimum C and g values using a Grid Search
+                                (This file shows how to use generateModels and calcConfusionForAll with GIST features)
+
+
+MAIN FLOW:
+==========
+findHabitat                 ==> Given an input image, classify it as one of the possible habitats
+main                        ==> Integrated flow, end to end
+
+
+DB TABLES:
+==========
+complete_ny_ebird_data
+----------------------
+obs_county     varchar(80)  
+obs_data       date         
+genus          varchar(70)  
+species        varchar(70)  
+common_name    varchar(100) 
+obs_number     smallint(6)  
+lat            float        
+lon            float        
+reported_count smallint(6)  
+
+birds_by_habitat_ny
+-------------------
+birdname varchar(70) 
+habitat  varchar(25) 
+
+
+LOADING DATA INTO THE DB:
+=========================
+MySQLgenSQL.gawk            ==> Parses the eBird CSV flat file to select only necessary columns and create "insert into" type SQL statements
+BeautifulSoup.py            ==> Written by Leonard Richardson, this helps to parse HTML files
+BirdsByHabitat.py           ==> Extracts the bird-habitat mapping from www.whatbird.com
+insertNY.gawk,insertWB.gawk ==> Scripts to create "insert into" SQL statements to insert the habitat-bird mapping into the DB
+
+
+DATABASE CONNECTION TO MYSQL FROM MATLAB:
+=========================================
 Add the /usr/share/java/mysql-connector-java-5.1.10.jar to the classpath.txt
 
 conn = database('mysql', 'dummy', 'dummy', 'com.mysql.jdbc.Driver', 'jdbc:mysql://localhost:3306/mysql');

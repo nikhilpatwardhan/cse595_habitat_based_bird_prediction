@@ -1,4 +1,6 @@
-
+%% Main file. Integrated flow, end to end.
+%% Given an input image, GPS location, date:
+%% Identify the habitat and output a histogram of birds for that region.
 addpath('./utils/libsvm-mat-3.0-1/');
 addpath('./utils/spatial_pyramid/');
 addpath('./utils/');
@@ -10,8 +12,6 @@ numlines = 1;
 name = 'Habitat-based Bird Identification';
 
 answer = inputdlg(prompt, name, numlines, defAns, 'on');
-% 
-% % % I = imread(answer{1});
 lat = str2double(answer{2});            % GPS Latitude
 lon = str2double(answer{3});            % GPS Longitude
 daten = datenum(answer{4});
@@ -19,16 +19,8 @@ datev = datevec(daten);
 month = datev(:,2);                     % as number
 radius = 3;                             % miles
 
-% Error handling?
-% month = 5;
-% lat = 40.92;
-% lon = -73.12;
-% answer{1} = ;
-
 % Identify the habitat in the image
-label = findHabitat(answer{1})
-% label = findHabitat('./data/demo/roof-view-2.jpg')   % UGLY
-% label = findHabitat('./data/demo/out/9.jpg')
+label = findHabitat(answer{1});
 
 % Build an SQL query using GPS data and the date
 sqlquery = sprintf(['select * from (select common_name as ''Bird'', ' ...

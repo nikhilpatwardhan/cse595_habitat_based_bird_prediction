@@ -60,7 +60,7 @@ and month(obs_data) >= @MONTHNUM - @DELTA and month(obs_data) <= @MONTHNUM + @DE
 group by common_name
 order by 2 desc;
 
-/* Filtered query */
+/* Filtered query based on Habitat */
 select * from
 (select common_name as 'Bird', sum(obs_number) as 'Frequency'
 from complete_ny_ebird_data
@@ -72,5 +72,3 @@ where Bird in (select birdname from birds_by_habitat_ny where habitat = 'coasts'
 
 /* Create separate table for NY birds */
 create table birds_by_habitat_ny like birds_by_habitat_na;
-
-

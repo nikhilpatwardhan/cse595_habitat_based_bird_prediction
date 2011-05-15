@@ -1,7 +1,4 @@
-% Loop through all images to find their Color Histograms
-clear;
-clc;
-
+% Loop through all images in a directory to find their Color Histograms
 load '../../matfiles/groupIndices.mat';
 
 addpath('../../utils');

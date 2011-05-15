@@ -1,3 +1,7 @@
+%% This is the primary preprocessing step. All the input images are assumed
+%% to have prefixes which are listed out in the model_names variable. This
+%% script computes how many of each category images exist and what their
+%% starting indexes are when the directory contents are listed out.
 model_names = {'coasts','deserts','forests','gardens','lakes','mangrove','marshes','mountains','mudflats','oceans','open','urban'};
 nCategories = length(model_names);
 
