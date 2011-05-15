@@ -24,7 +24,7 @@ function confusion = calcConfusion(index, listOfFeatures, listOfModels, modelNam
             end
             
             [pl, acc, prob] = svmpredict(testLabels, testData,  listOfModels{i}, '-b 1');
-%             arr(:,i) = prob(:,1);
+            arr(:,i) = prob(:,1);
         end
 
         for i=1:length - length*p + 1

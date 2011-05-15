@@ -5,6 +5,8 @@ function [accCount accPerc]=calcConfusionForAll(features,p)
 load '../matfiles/classifiers.mat';
 load '../matfiles/groupIndices.mat';
 
+addpath('../utils/libsvm-mat-3.0-2/');          % Supports intersection kernel
+
 len = length(features);
 accCount = zeros(len,len+1);
 

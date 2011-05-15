@@ -1,7 +1,7 @@
 %% Main file. Integrated flow, end to end.
 %% Given an input image, GPS location, date:
 %% Identify the habitat and output a histogram of birds for that region.
-addpath('./utils/libsvm-mat-3.0-1/');
+addpath('./utils/libsvm-mat-3.0-2/');
 addpath('./utils/spatial_pyramid/');
 addpath('./utils/');
 
@@ -20,7 +20,22 @@ month = datev(:,2);                     % as number
 radius = 3;                             % miles
 
 % Identify the habitat in the image
-label = findHabitat(answer{1});
+[label confidence] = findHabitat(answer{1});
+
+if label == -1
+    label = 'Unknown';
+    disp('Unknown habitat. Exiting...');
+    return;
+end;
+
+% Handle special case for label "open"
+if strcmp(label,'open')
+    decodedLabel = 'Open Country';
+else
+    decodedLabel = label;
+end;
+
+fprintf('We think the habitat is %s with %s confidence.\n',decodedLabel,confidence);
 
 % Build an SQL query using GPS data and the date
 sqlquery = sprintf(['select * from (select common_name as ''Bird'', ' ...
@@ -45,9 +60,10 @@ for i=1:length(curs)
 end;
 
 if (isempty(x))
-    disp('Sorry, no bird sightings were found for that habitat at the given location.');
+    fprintf('Sorry, no bird sightings were found for the habitat %s at the given location.\n',label);
     return;
 end;
+
 % Show the histogram
 bar(x);
 xticklabel_rotate([1:length(x)],90,y,'interpreter','none');
